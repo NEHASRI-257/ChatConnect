@@ -12,7 +12,7 @@ function App() {
 
     const joinChat = () => {
         if (username.trim()) {
-            socketRef.current = io('https://zapchat-rq1v.onrender.com');
+            socketRef.current = io('https://zapchat-rq1v.onrender.com'); // Update this in Step 2
             socketRef.current.emit('join', username.trim());
             socketRef.current.on('users', handleUserUpdate);
             socketRef.current.on('message', handleNewMessage);
@@ -51,10 +51,10 @@ function App() {
     };
 
     return (
-        <div className='zapchat-app'>
+        <div className='chatconnect-app'>
             {!joined ? (
                 <div className='login-container'>
-                    <h1 className="logo">ZapChat ⚡</h1>
+                    <h1 className="logo">ChatConnect 💬</h1>
                     <input
                         type='text'
                         placeholder='Enter your name...'
@@ -66,7 +66,7 @@ function App() {
             ) : (
                 <div className='chat-ui'>
                     <aside className='sidebar'>
-                        <h2>ZapChat ⚡</h2>
+                        <h2>ChatConnect 💬</h2>
                         <p><strong>Welcome:</strong> {username}</p>
                         <h4>Online Users ({users.length})</h4>
                         <ul>
@@ -116,4 +116,4 @@ function App() {
 }
 
 export default App;
-   
+
