@@ -10,26 +10,38 @@ function App() {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
 
+    useEffect(() => {
+        // Cleanup listeners on unmount
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.disconnect();
+                socketRef.current = null;
+            }
+        };
+    }, []);
+
     const joinChat = () => {
         if (username.trim()) {
-            socketRef.current = io(import.meta.env.VITE_BACKEND_URL); // ✅ updated line
+            socketRef.current = io(import.meta.env.VITE_BACKEND_URL);
+
+            // Join event
             socketRef.current.emit('join', username.trim());
-            socketRef.current.on('users', handleUserUpdate);
-            socketRef.current.on('message', handleNewMessage);
+
+            // Set up listeners once
+            socketRef.current.on('users', (userList) => {
+                setUsers(userList);
+            });
+
+            socketRef.current.on('message', (msg) => {
+                setMessages((prev) => [...prev, msg]);
+            });
+
             setJoined(true);
         }
     };
 
-    const handleUserUpdate = (userList) => {
-        setUsers(userList);
-    };
-
-    const handleNewMessage = (msg) => {
-        setMessages((prev) => [...prev, msg]);
-    };
-
     const sendMessage = () => {
-        if (message.trim()) {
+        if (message.trim() && socketRef.current) {
             socketRef.current.emit('message', {
                 username: username,
                 message: message.trim(),
@@ -41,13 +53,13 @@ function App() {
     const logout = () => {
         if (socketRef.current) {
             socketRef.current.disconnect();
-            setJoined(false);
-            setUsername('');
-            setUsers([]);
-            setMessages([]);
-            setMessage('');
         }
         socketRef.current = null;
+        setJoined(false);
+        setUsername('');
+        setUsers([]);
+        setMessages([]);
+        setMessage('');
     };
 
     return (
@@ -85,7 +97,7 @@ function App() {
                                     className={`message-bubble ${
                                         msg.username === username
                                             ? 'own-message'
-                                            : msg.username === 'System' || msg.username === 'System : '
+                                            : msg.username === 'System'
                                             ? 'system-message'
                                             : 'other-message'
                                     }`}
