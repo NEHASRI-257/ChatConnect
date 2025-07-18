@@ -11,7 +11,6 @@ function App() {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        // Cleanup listeners on unmount
         return () => {
             if (socketRef.current) {
                 socketRef.current.disconnect();
@@ -22,17 +21,26 @@ function App() {
 
     const joinChat = () => {
         if (username.trim()) {
-            socketRef.current = io(import.meta.env.VITE_BACKEND_URL);
+            socketRef.current = io(import.meta.env.VITE_BACKEND_URL, {
+                transports: ['websocket'],
+            });
 
-            // Join event
-            socketRef.current.emit('join', username.trim());
+            socketRef.current.on('connect', () => {
+                console.log('✅ Connected to server:', socketRef.current.id);
+                socketRef.current.emit('join', username.trim());
+            });
 
-            // Set up listeners once
+            socketRef.current.on('connect_error', (err) => {
+                console.error('❌ Connection error:', err.message);
+            });
+
             socketRef.current.on('users', (userList) => {
+                console.log('👥 Users updated:', userList);
                 setUsers(userList);
             });
 
             socketRef.current.on('message', (msg) => {
+                console.log('📩 New message:', msg);
                 setMessages((prev) => [...prev, msg]);
             });
 
