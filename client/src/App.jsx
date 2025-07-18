@@ -30,7 +30,6 @@ function App() {
       });
 
       socketRef.current.on('connect', () => {
-        console.log('✅ Connected to server:', socketRef.current.id);
         socketRef.current.emit('join', {
           username: username.trim(),
           avatar,
@@ -92,17 +91,20 @@ function App() {
     return (
       <div className="login-container">
         <h1 className="logo">ChatConnect 💬</h1>
-        <input
-          type="text"
-          placeholder="Enter your name..."
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
 
-        {/* Avatar Picker */}
-        <label>
-          Choose an avatar (optional):
+        <div className="form-group">
+          <label>Enter your name:</label>
+          <input
+            type="text"
+            placeholder="e.g. Aarav"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Choose an avatar (optional):</label>
           <select value={avatar} onChange={(e) => setAvatar(e.target.value)}>
             <option>😀</option>
             <option>😎</option>
@@ -111,11 +113,10 @@ function App() {
             <option>🐱</option>
             <option>🦄</option>
           </select>
-        </label>
+        </div>
 
-        {/* Country Picker */}
-        <label>
-          Country (optional):
+        <div className="form-group">
+          <label>Country (optional):</label>
           <select value={country} onChange={(e) => setCountry(e.target.value)}>
             <option value="🇮🇳">🇮🇳 India</option>
             <option value="🇺🇸">🇺🇸 USA</option>
@@ -124,16 +125,18 @@ function App() {
             <option value="🇨🇦">🇨🇦 Canada</option>
             <option value="🌍">🌍 Other</option>
           </select>
-        </label>
+        </div>
 
-        {/* Status Message */}
-        <input
-          type="text"
-          placeholder="Status (optional)..."
-          maxLength="40"
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-        />
+        <div className="form-group">
+          <label>Status (optional):</label>
+          <input
+            type="text"
+            placeholder="Chilling today..."
+            maxLength="40"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          />
+        </div>
 
         <button onClick={joinChat}>Join Chat</button>
       </div>
@@ -150,7 +153,6 @@ function App() {
         <button
           className="users-toggle-btn"
           onClick={() => setShowUsersDropdown((prev) => !prev)}
-          aria-label="Toggle online users list"
         >
           Active Now ({users.length})
         </button>
@@ -183,7 +185,9 @@ function App() {
               }`}
             >
               <div className="message-meta">
-                <span className="msg-user">{msg.username}</span>
+                <span className="msg-user">
+                  {msg.avatar || ''} {msg.username}
+                </span>
               </div>
               <div className="msg-text">{msg.message}</div>
             </div>
