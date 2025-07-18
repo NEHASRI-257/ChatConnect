@@ -46,17 +46,13 @@ ChatConnect is a dynamic full-stack messaging application built with React and S
 ### Backend Setup
 
 -cd server
-
 -npm install
-
 -npm run dev
 
 ### Frontend Setup
 
 -cd client
-
 -npm install
-
 -npm run dev
 
 
