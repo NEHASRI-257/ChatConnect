@@ -50,7 +50,6 @@ npm install
 npm run dev
 
 ### Frontend Setup
-To run the frontend locally:
 
 cd client
 npm install
