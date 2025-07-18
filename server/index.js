@@ -7,7 +7,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: ["https://chatconnect.vercel.app", "http://localhost:5173"],
+        origin: [
+            "https://chat-connect-1.vercel.app", // ✅ updated to correct frontend URL
+            "http://localhost:5173"              // ✅ keep this for local testing
+        ],
         methods: ['GET', 'POST'],
     },
 });
