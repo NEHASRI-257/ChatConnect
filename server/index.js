@@ -6,7 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ["https://zap-chat-alpha.vercel.app","http://localhost:5173"],
+        origin: ["https://chatconnect.vercel.app", "http://localhost:5173"],
         methods: ['GET', 'POST'],
     },
 });
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
         io.emit('users', users);
         io.emit('message', {
             username: 'System : ',
-            message: `${username}` + ` has joined the chat`,
+            message: `${username} has joined the chat`,
         });
         console.log(`User joined : ${username} (${socket.id})`);
     });
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const user = users.find((user) => user.id === socket.id);
         if (user) {
-            users = users.filter((u) => u.id !== socket.id); // <- Fix here
+            users = users.filter((u) => u.id !== socket.id);
             io.emit('users', users);
             io.emit('message', {
                 username: 'System',
