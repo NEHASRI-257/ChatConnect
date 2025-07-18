@@ -12,7 +12,7 @@ function App() {
 
     const joinChat = () => {
         if (username.trim()) {
-            socketRef.current = io('https://chatconnect-yipt.onrender.com');
+            socketRef.current = io(import.meta.env.VITE_BACKEND_URL); // ✅ updated line
             socketRef.current.emit('join', username.trim());
             socketRef.current.on('users', handleUserUpdate);
             socketRef.current.on('message', handleNewMessage);
@@ -116,4 +116,3 @@ function App() {
 }
 
 export default App;
-
