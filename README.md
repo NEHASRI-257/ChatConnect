@@ -51,3 +51,6 @@ Thorough manual testing was carried out to verify performance, responsiveness, a
 
 ###  Outcome  
 The final version of **ChatConnect** is a cloud-deployed, real-time messaging platform with a clean interface, reliable performance, and mobile responsiveness. The project helped me strengthen my skills in full-stack development, WebSocket communication, and cloud deployment practices.
+
+<img width="1908" height="900" alt="Image" src="https://github.com/user-attachments/assets/0e25066d-a735-4c50-a9b6-0af1e6b5d4c3" />
+<img width="1916" height="924" alt="Image" src="https://github.com/user-attachments/assets/4f8da546-ae0a-459d-af11-2c723f09451b" />
