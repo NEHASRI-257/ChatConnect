@@ -7,32 +7,29 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #d0e7d2;
+  background-color: #121212;
   height: 100vh;
   overflow: hidden;
+  color: #e0e0e0;
 }
 
-.zapchat-app {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  align-items: center;
-  justify-content: center;
+.chatconnect-app.dark-theme {
+  background-color: #121212;
 }
 
 /* Login screen */
 .login-container {
-  background: white;
+  background: #1e1e1e;
   padding: 2em;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
 }
 
 .login-container .logo {
   font-size: 2em;
   margin-bottom: 20px;
-  color: #075e54;
+  color: #00c8ff;
 }
 
 .login-container input {
@@ -40,14 +37,16 @@ body {
   padding: 0.75em;
   margin: 10px 0;
   font-size: 1em;
-  border: 1px solid #aaa;
+  border: 1px solid #555;
   border-radius: 5px;
+  background: #2a2a2a;
+  color: white;
 }
 
 .login-container button {
   padding: 0.75em 1.5em;
-  background-color: #128c7e;
-  color: white;
+  background-color: #00c8ff;
+  color: black;
   border: none;
   border-radius: 5px;
   font-weight: bold;
@@ -59,17 +58,17 @@ body {
   display: flex;
   width: 90vw;
   height: 90vh;
-  background: white;
+  background: #1e1e1e;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
 }
 
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #075e54;
-  color: white;
+  background-color: #212121;
+  color: #e0e0e0;
   padding: 1.5em;
   display: flex;
   flex-direction: column;
@@ -78,6 +77,7 @@ body {
 
 .sidebar h2 {
   font-size: 1.8em;
+  color: #00c8ff;
 }
 
 .sidebar ul {
@@ -88,13 +88,13 @@ body {
 
 .sidebar li {
   padding: 5px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .sidebar button {
   margin-top: auto;
   padding: 0.6em;
-  background-color: #d9534f;
+  background-color: #ff4c4c;
   color: white;
   border: none;
   border-radius: 5px;
@@ -104,10 +104,11 @@ body {
 /* Chat Area */
 .chat-area {
   flex: 1;
-  background-color: #ece5dd;
+  background-color: #2a2a2a;
   display: flex;
   flex-direction: column;
   position: relative;
+  color: #e0e0e0;
 }
 
 .message-list {
@@ -132,53 +133,62 @@ body {
 }
 
 .own-message {
-  background-color: #dcf8c6;
+  background-color: #004d40;
   align-self: flex-end;
   border-bottom-right-radius: 0;
+  color: #e0f7fa;
 }
 
 .other-message {
-  background-color: white;
+  background-color: #333;
   align-self: flex-start;
   border-bottom-left-radius: 0;
 }
 
 .system-message {
   align-self: center;
-  background-color: #fffae5;
+  background-color: #444;
   font-style: italic;
+  color: #ccc;
 }
 
 .message-meta {
   font-size: 0.75em;
-  color: gray;
+  color: #aaa;
   margin-bottom: 5px;
 }
 
 .msg-user {
   font-weight: bold;
+  color: #81d4fa;
+}
+
+.msg-text {
+  color: #e0e0e0;
 }
 
 .message-input {
   padding: 1em;
-  background-color: #f0f0f0;
+  background-color: #1e1e1e;
   display: flex;
   gap: 1em;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #333;
 }
 
 .message-input input {
   flex: 1;
   padding: 0.75em;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
   border-radius: 20px;
   outline: none;
   font-size: 1em;
+  background-color: #2a2a2a;
+  color: white;
 }
 
 .message-input button {
-  background-color: #128c7e;
-  color: white;
+  background-color: #00c8ff;
+  color: black;
   border: none;
   border-radius: 20px;
   padding: 0 20px;
