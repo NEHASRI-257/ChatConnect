@@ -24,6 +24,8 @@ body {
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  max-width: 360px;
+  margin: 3rem auto;
 }
 
 .login-container .logo {
@@ -51,19 +53,27 @@ body {
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #0099cc;
 }
 
 /* Top Navbar */
 .top-navbar {
+  height: 60px;
+  padding: 0 1.5em;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #212121;
   color: #00c8ff;
-  padding: 1em 2em;
-  position: relative;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
   user-select: none;
+  position: relative;
+  z-index: 100;
+  gap: 1em;
 }
 
 .top-navbar .logo {
@@ -73,19 +83,21 @@ body {
 
 .top-navbar .user-info {
   font-size: 1em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .top-navbar button {
   background-color: #00c8ff;
   color: black;
   border: none;
-  padding: 0.5em 1em;
+  padding: 0.4em 1em;
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 0.9em;
-  margin-left: 1em;
+  font-size: 0.9rem;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .top-navbar button:hover {
@@ -95,17 +107,17 @@ body {
 /* Users Dropdown */
 .users-dropdown {
   position: absolute;
-  top: 100%;
-  right: 6.5em; /* place left of logout button */
+  top: 60px; /* height of navbar */
+  right: 90px; /* aligned left of logout button */
+  width: 200px;
+  max-height: 220px;
+  overflow-y: auto;
   background-color: #1e1e1e;
   border: 1px solid #555;
   border-radius: 8px;
-  width: 180px;
-  max-height: 220px;
-  overflow-y: auto;
   box-shadow: 0 0 15px rgba(0,0,0,0.7);
-  z-index: 20;
   color: #e0e0e0;
+  z-index: 200;
 }
 
 .users-dropdown ul {
@@ -126,20 +138,17 @@ body {
 
 /* Chat Area */
 .chat-area {
-  flex: 1 1 auto;
+  height: calc(100vh - 60px - 60px); /* viewport height minus navbar and input bar */
+  padding: 1em 2em;
+  overflow-y: auto;
   background-color: #2a2a2a;
   display: flex;
   flex-direction: column;
-  padding: 1em 2em;
-  margin-top: 0; /* No sidebar margin */
-  height: calc(100vh - 72px - 60px); /* viewport height minus navbar (72px) and input bar (60px) */
-  overflow-y: auto;
-  color: #e0e0e0;
 }
 
-/* Messages */
+/* Messages List */
 .message-list {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -147,12 +156,11 @@ body {
   overflow-y: auto;
 }
 
-/* Bubbles */
+/* Message Bubbles */
 .message-bubble {
   max-width: 60%;
   padding: 0.75em 1em;
   border-radius: 10px;
-  position: relative;
   word-wrap: break-word;
   display: flex;
   flex-direction: column;
@@ -176,6 +184,7 @@ body {
   background-color: #444;
   font-style: italic;
   color: #ccc;
+  max-width: 100%;
 }
 
 .message-meta {
@@ -193,7 +202,7 @@ body {
   color: #e0e0e0;
 }
 
-/* Message input fixed at bottom */
+/* Fixed Message Input Bar */
 .message-input {
   position: fixed;
   bottom: 0;
@@ -202,10 +211,10 @@ body {
   background-color: #1e1e1e;
   border-top: 1px solid #333;
   display: flex;
-  gap: 1em;
-  padding: 1em 2em;
+  gap: 0.75em;
+  padding: 0.75em 1.5em;
   align-items: center;
-  z-index: 30;
+  z-index: 150;
 }
 
 .message-input input {
@@ -217,6 +226,7 @@ body {
   font-size: 1em;
   background-color: #2a2a2a;
   color: white;
+  transition: border-color 0.3s ease;
 }
 
 .message-input input:focus {
@@ -228,10 +238,11 @@ body {
   color: black;
   border: none;
   border-radius: 20px;
-  padding: 0 20px;
+  padding: 0.5em 1.5em;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 .message-input button:hover {
