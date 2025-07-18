@@ -1,4 +1,4 @@
-## 💼 Company: CODTECH IT SOLUTIONS
+## Company: CODTECH IT SOLUTIONS
 ##  Name: NEHASRI H
 ##  Intern Id: CT08DM1117
 ##  Domain: MERN STACK WEB DEVELOPMENT
