@@ -5,9 +5,6 @@ import './index.css';
 function App() {
   const [joined, setJoined] = useState(false);
   const [username, setUsername] = useState('');
-  const [avatar, setAvatar] = useState('😀');
-  const [country, setCountry] = useState('🇮🇳');
-  const [status, setStatus] = useState('');
   const socketRef = useRef(null);
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -30,12 +27,8 @@ function App() {
       });
 
       socketRef.current.on('connect', () => {
-        socketRef.current.emit('join', {
-          username: username.trim(),
-          avatar,
-          country,
-          status: status.trim(),
-        });
+        console.log('✅ Connected to server:', socketRef.current.id);
+        socketRef.current.emit('join', username.trim());
       });
 
       socketRef.current.on('connect_error', (err) => {
@@ -47,10 +40,10 @@ function App() {
       });
 
       socketRef.current.on('message', (msg) => {
+        // Change system message wording here if username === 'System'
         if (msg.username === 'System') {
-          const enteredText = msg.message
-            .replace('has joined the chat', 'entered the room')
-            .replace('is online', 'is now online');
+          // Change text like "neha has joined the chat" to "neha entered the room"
+          const enteredText = msg.message.replace('has joined the chat', 'entered the room').replace('is online', 'is now online');
           setMessages((prev) => [...prev, { ...msg, message: enteredText }]);
         } else {
           setMessages((prev) => [...prev, msg]);
@@ -64,7 +57,7 @@ function App() {
   const sendMessage = () => {
     if (message.trim() && socketRef.current) {
       socketRef.current.emit('message', {
-        username,
+        username: username,
         message: message.trim(),
       });
       setMessage('');
@@ -78,9 +71,6 @@ function App() {
     socketRef.current = null;
     setJoined(false);
     setUsername('');
-    setAvatar('😀');
-    setCountry('🇮🇳');
-    setStatus('');
     setUsers([]);
     setMessages([]);
     setMessage('');
@@ -91,53 +81,12 @@ function App() {
     return (
       <div className="login-container">
         <h1 className="logo">ChatConnect 💬</h1>
-
-        <div className="form-group">
-          <label>Enter your name:</label>
-          <input
-            type="text"
-            placeholder="e.g. Aarav"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Choose an avatar (optional):</label>
-          <select value={avatar} onChange={(e) => setAvatar(e.target.value)}>
-            <option>😀</option>
-            <option>😎</option>
-            <option>👻</option>
-            <option>🤖</option>
-            <option>🐱</option>
-            <option>🦄</option>
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label>Country (optional):</label>
-          <select value={country} onChange={(e) => setCountry(e.target.value)}>
-            <option value="🇮🇳">🇮🇳 India</option>
-            <option value="🇺🇸">🇺🇸 USA</option>
-            <option value="🇬🇧">🇬🇧 UK</option>
-            <option value="🇯🇵">🇯🇵 Japan</option>
-            <option value="🇨🇦">🇨🇦 Canada</option>
-            <option value="🌍">🌍 Other</option>
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label>Status (optional):</label>
-          <input
-            type="text"
-            placeholder="Chilling today..."
-            maxLength="40"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          />
-        </div>
-
+        <input
+          type="text"
+          placeholder="Enter your name..."
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <button onClick={joinChat}>Join Chat</button>
       </div>
     );
@@ -145,22 +94,26 @@ function App() {
 
   return (
     <div className="chatconnect-app">
+      {/* Top Navbar */}
       <nav className="top-navbar">
         <div className="logo">ChatConnect 💬</div>
-        <div className="user-info">
-          {avatar} Hello, {username}! {country} <em>{status && `— ${status}`}</em>
-        </div>
+
+        <div className="user-info">👋 Hello, {username}!</div>
+
         <button
           className="users-toggle-btn"
           onClick={() => setShowUsersDropdown((prev) => !prev)}
+          aria-label="Toggle online users list"
         >
           Active Now ({users.length})
         </button>
+
         <button className="logout-btn" onClick={logout}>
           Logout
         </button>
       </nav>
 
+      {/* Users Dropdown */}
       {showUsersDropdown && (
         <div className="users-dropdown">
           <ul>
@@ -171,23 +124,22 @@ function App() {
         </div>
       )}
 
+      {/* Chat area */}
       <main className="chat-area">
         <div className="message-list">
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`message-bubble ${
+              className={message-bubble ${
                 msg.username === username
                   ? 'own-message'
                   : msg.username === 'System'
                   ? 'system-message'
                   : 'other-message'
-              }`}
+              }}
             >
               <div className="message-meta">
-                <span className="msg-user">
-                  {msg.avatar || ''} {msg.username}
-                </span>
+                <span className="msg-user">{msg.username}</span>
               </div>
               <div className="msg-text">{msg.message}</div>
             </div>
@@ -195,6 +147,7 @@ function App() {
         </div>
       </main>
 
+      {/* Fixed message input at bottom */}
       <div className="message-input">
         <input
           type="text"
